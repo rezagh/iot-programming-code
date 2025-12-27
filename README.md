@@ -1,6 +1,6 @@
 # IoT Programming: Companion Code
 
-Welcome to the official code repository for the book **"IoT Programming"**.
+Welcome to the official code repository for the book [**IoT Programming**](https://leanpub.com/iotprogramming)
 
 This repository contains the source code, wiring diagrams, and examples used throughout the book. It is designed to be a hands-on companion to your reading, allowing you to test, modify, and expand upon the projects discussed in the chapters.
 
