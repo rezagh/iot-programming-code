@@ -1,32 +1,35 @@
-// #include "defines.h"
-// #include "arduino_secrets.h"
+// WiFi Test — connects to a WiFi network and reports signal strength.
+//
+// Requires a board with built-in WiFi, such as the Arduino Nano 33 IoT,
+// MKR WiFi 1010, or Arduino Uno R4 WiFi. The classic Uno (R3) has no WiFi.
+//
+// Library: install "WiFiNINA" via the Library Manager.
+// For the Uno R4 WiFi, use <WiFiS3.h> instead (installed with the board package).
 
-// To eliminate FW warning when using not latest nina-fw version
-// To use whenever WiFi101-FirmwareUpdater-Plugin is not sync'ed with nina-fw
-// version
-#define WIFI_FIRMWARE_LATEST_VERSION "1.4.8"
+#include <WiFiNINA.h>  // For the Uno R4 WiFi, use <WiFiS3.h> instead
 
-#include <SPI.h>
-
-#if USING_WIFI101
-#include <WiFi101_Generic.h>
-#else
-#include <WiFiNINA_Generic.h>
-#endif
-
-// SSID of your network
-char ssid[] = "your wifi name";
-// password of your WPA Network
-char pass[] = "your wifi password";
+char ssid[] = "YOUR_SSID";      // Name of your WiFi network
+char pass[] = "YOUR_PASSWORD";  // Password of your WPA network
 
 void setup() {
+  Serial.begin(9600);
 
-  Serial.begin(115200);
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
 
-  int status = WiFi.begin(ssid, pass);
-  delay(10000);
+  // Keep trying until we are connected
+  while (WiFi.begin(ssid, pass) != WL_CONNECTED) {
+    Serial.print(".");
+    delay(5000);
+  }
 
-  Serial.println("You're connected to the network");
+  Serial.println();
+  Serial.println("You're connected to the network!");
 }
 
-void loop() { Serial.println("You're connected to the network"); }
+void loop() {
+  // Report the WiFi signal strength every 5 seconds
+  Serial.print("Signal strength (RSSI): ");
+  Serial.println(WiFi.RSSI());
+  delay(5000);
+}
