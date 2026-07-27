@@ -21,6 +21,7 @@ df['temperature'] = df['temperature'].interpolate()
 # 4. Resample (Downsampling)
 # Convert high-frequency data into 1-hour averages to reduce volume
 hourly_data = df.resample('1h').mean()
+print(hourly_data.head())
 
 # 5. Rolling Mean (Smoothing)
 # Calculate the average of the last 10 readings to remove noise spikes
